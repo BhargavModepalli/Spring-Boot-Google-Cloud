@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-google-cloud-deployment
+  labels:
+    app: spring-boot-google-cloud
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-boot-google-cloud
+  template:
+    metadata:
+      labels:
+        app: spring-boot-google-cloud
+    spec:
+      containers:
+        - name: spring-boot-google-cloud
+          image: registry.hub.docker.com/bmodepalli/spring_boot_google_cloud
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: regcred
