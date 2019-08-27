@@ -9,6 +9,8 @@ class HelloWorldController {
     @GetMapping("/time")
     String getDate(){
 
-        return new Date().toString()
+        String time = new Date().toString()
+        println("request came in at ${time}")
+        return time
     }
 }

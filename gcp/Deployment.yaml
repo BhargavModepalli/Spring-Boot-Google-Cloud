@@ -4,20 +4,26 @@ metadata:
   name: spring-boot-google-cloud-deployment
   labels:
     app: spring-boot-google-cloud
+# how many copies of each pod do we want? 3
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: spring-boot-google-cloud
+# pod definition with labels, with  the help of labels services picks them
   template:
     metadata:
       labels:
         app: spring-boot-google-cloud
+# docker image name and image registry
+# need to point to full docker registry url, in this case it's docker hub registry. we can use google registry as an alternative
     spec:
       containers:
         - name: spring-boot-google-cloud
-          image: registry.hub.docker.com/bmodepalli/spring_boot_google_cloud
+          image: registry.hub.docker.com/bmodepalli/spring-boot-google-cloud:0.0.1
           ports:
             - containerPort: 8080
+# secrets to pull the image docker hub registry to GCP, we need to create secrets beforehand
+# we don't need to create this if image is google registry
       imagePullSecrets:
         - name: regcred
